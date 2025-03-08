@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    flex-direction: column;
+    
+    .section-wrapper {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        flex-direction: column;
+        width: 100%;
+        justify-content: space-between;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+
+        .section-content-wrapper {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+        }
+
+        mat-progress-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px !important;
+            height: 50px !important;
+            z-index: 999;
+        }
+    }
+}

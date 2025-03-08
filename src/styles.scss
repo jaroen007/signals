@@ -1,0 +1,46 @@
+body {
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    background-color: #f0f0f0;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+table {
+    border-collapse: collapse;
+    font-size: 16px;
+    text-align: left;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 3px 8px;
+}
+
+th {
+    background-color: #014b70;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+tbody {
+    position: relative;
+    height: 75px;
+}
+
+tfoot td {
+    font-weight: bold;
+    background-color: #f9f9f9;
+}

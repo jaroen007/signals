@@ -1,0 +1,38 @@
+<form (ngSubmit)="onSubmit()">
+    <div *ngIf="isLoading()">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <mat-form-field appearance="fill">
+        <mat-label>Code</mat-label>
+        <input matInput id="code" name="code" [(ngModel)]="code" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput id="name" name="name" [(ngModel)]="name" required />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Select an option</mat-label>
+        <mat-select [(value)]="unitId">
+            <mat-option *ngFor="let unit of units.value()" [value]="unit.id">{{ unit.name }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Price</mat-label>
+        <input matInput id="price" name="price" type="number" [(ngModel)]="price" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Quantity</mat-label>
+        <input matInput id="quantity" name="quantity" type="number" [(ngModel)]="quantity" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Discount</mat-label>
+        <input matInput id="discount" name="discount" type="number" [(ngModel)]="discount" />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Add/Update</button>
+</form>

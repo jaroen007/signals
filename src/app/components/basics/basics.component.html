@@ -1,0 +1,55 @@
+<div class="container">
+    <div class="section-wrapper">
+        <h4>setting and updating signals:</h4>
+        <div class="section-content-wrapper">
+            <button (click)="setCounter()">set counter to 10</button>
+            <button (click)="incrementCounter()">add 1</button>
+            <span>count: {{ counter() }}</span>
+        </div>
+    </div>
+
+    <div class="section-wrapper">
+        <h4>input/computed/linked/resource signals (pricelines):</h4>
+        <div class="section-content-wrapper">
+            <button style="height: 20px;" [routerLink]="['/basics', 'add']">new priceline</button>
+            <table [border]="1">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Unit</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Discount</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let priceline of pricelinesWithUnitName()">
+                        <td><span class="material-symbols-outlined icon" [routerLink]="['/basics', priceline.id]">edit</span></td>
+                        <td><span class="material-symbols-outlined icon" (click)="deletePriceLine(priceline.id)">delete</span></td>
+                        <td>{{ priceline.code }}</td>
+                        <td>{{ priceline.name }}</td>
+                        <td>{{ priceline.unitName }}</td>
+                        <!-- <td>{{ getUnitName(priceline.unitId) }}</td> -->
+                        <td>{{ priceline.price }}</td>
+                        <td>{{ priceline.quantity }}</td>
+                        <td>{{ priceline.discount }}</td>
+                        <td>{{ priceline.price * priceline.quantity * (1 - priceline.discount / 100)  }}</td>
+                    </tr>
+                    <div *ngIf="isLoading()">
+                        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+                    </div>
+                </tbody>
+                <tfoot *ngIf="!isLoading()">
+                    <tr>
+                        <td colspan="8"></td>
+                        <td>{{ total() }}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
