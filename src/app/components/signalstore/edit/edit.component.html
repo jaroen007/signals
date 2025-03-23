@@ -1,0 +1,16 @@
+<form [formGroup]="unitForm" (ngSubmit)="onSubmit()">
+    <div *ngIf="unitStore.isLoading()">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+    <mat-form-field appearance="fill">
+        <mat-label>Code</mat-label>
+        <input matInput id="code" formControlName="code" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput id="name" formControlName="name" />
+    </mat-form-field>
+    
+    <button mat-raised-button color="primary" type="submit">Add/Update</button>
+</form>

@@ -4,13 +4,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
 import { PriceLine } from '../../../types/priceline';
 import { PriceLineService } from '../../../services/priceline.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { UnitService } from '../../../services/unit.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     templateUrl: './edit.component.html',
@@ -18,7 +18,7 @@ import { UnitService } from '../../../services/unit.service';
     standalone: true,
     imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule, MatSelectModule]
 })
-export class EditComponent {
+export class EditBasicsComponent {
     readonly priceLineService = inject(PriceLineService);
     readonly unitService = inject(UnitService);
     readonly router = inject(Router);
@@ -61,6 +61,7 @@ export class EditComponent {
         }
 
         const newPriceLine: PriceLine = {
+            id: this.id(),
             code: this.code(),
             name: this.name(),
             unitId: this.unitId(),

@@ -1,18 +1,18 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { PriceLineService } from '../../services/priceline.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
 import { UnitService } from '../../services/unit.service';
 import { PriceLine } from '../../types/priceline';
+import { UnitStore } from '../../stores/unit.store';
 
 @Component({
     templateUrl: './basics.component.html',
     styleUrl: './basics.component.scss',
     standalone: true,
-    imports: [CommonModule, FormsModule, MatProgressSpinnerModule, RouterLink]
+    imports: [CommonModule, MatProgressSpinnerModule, RouterLink]
 })
 export class BasicsComponent {
     // counter is a reference to the signal itself while counter() is a reference to the signal's value
@@ -41,26 +41,28 @@ export class BasicsComponent {
     //-----------------------------------------------------------------------------------
     readonly priceLineService = inject(PriceLineService);
     readonly unitService = inject(UnitService);
+    readonly unitStore = inject(UnitStore);
 
     readonly priceLines = rxResource({
         loader: () => this.priceLineService.getPriceLines(),
-        initialValue: []
-      });
+        defaultValue: []
+    });
     readonly units = rxResource({
-        loader: () => this.unitService.getUnits()
+        loader: () => this.unitService.getUnits(),
+        defaultValue: []
     });
     readonly isProcessing = signal(false);
     readonly isLoading = computed(() => this.priceLines.isLoading() || this.isProcessing());
-    readonly total = computed(() => this.priceLines.value()?.reduce((acc, priceline) => acc + priceline.price * priceline.quantity * (1 - priceline.discount / 100), 0));
+    readonly total = computed(() => this.priceLines.value().reduce((acc, priceline) => acc + priceline.price * priceline.quantity * (1 - priceline.discount / 100), 0));
 
     // Correct way of matching the unit name with the unit id
     // Here we are using computed signal to derive the pricelines with unit name so this will be the final value that will be used in the view instead of the original pricelines signal.
     // Note that this gets updated whenever the pricelines or units signals changes so this will always be in sync with the original signals
-    readonly pricelinesWithUnitName = computed(() => {
+    readonly extendedPricelines = computed(() => {
+        console.log(this.unitStore.entities());
         console.log('this only gets logged whenever the pricelines or units signals changes')
         const pricelines = this.priceLines.value();
         const units = this.units.value();
-        if (!pricelines || !units) return [];
 
         return pricelines.map(priceline => {
             const unit = units.find(u => u.id == priceline.unitId);

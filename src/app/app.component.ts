@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { UnitStore } from './stores/unit.store';
 
 @Component({
     selector: 'app-root',
@@ -10,5 +11,5 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     imports: [CommonModule, RouterOutlet, RouterLink]
 })
 export class AppComponent {
-    
+    readonly unitStore = inject(UnitStore);
 }

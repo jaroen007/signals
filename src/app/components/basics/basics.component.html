@@ -27,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let priceline of pricelinesWithUnitName()">
+                    <tr *ngFor="let priceline of extendedPricelines()">
                         <td><span class="material-symbols-outlined icon" [routerLink]="['/basics', priceline.id]">edit</span></td>
                         <td><span class="material-symbols-outlined icon" (click)="deletePriceLine(priceline.id)">delete</span></td>
                         <td>{{ priceline.code }}</td>

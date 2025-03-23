@@ -1,1 +1,29 @@
-<div>signalstore</div>
+<div class="container">
+    <div class="section-wrapper">
+        <h4>units but with signalstore:</h4>
+        <div class="section-content-wrapper">
+            <button style="height: 20px;" [routerLink]="['/signalstore', 'add']">new unit</button>
+            <table [border]="1">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Code</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let unit of unitStore.entities()">
+                        <td><span class="material-symbols-outlined icon" [routerLink]="['/signalstore', unit.id]">edit</span></td>
+                        <td><span class="material-symbols-outlined icon" (click)="unitStore.deleteUnit(unit.id)">delete</span></td>
+                        <td>{{ unit.code }}</td>
+                        <td>{{ unit.name }}</td>
+                    </tr>
+                    <div *ngIf="unitStore.isLoading()">
+                        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+                    </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
